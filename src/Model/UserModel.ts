@@ -26,11 +26,28 @@ export default class UserModel {
     public setName(value: string) {
         this.name = value;
     }
+    public getId() {
+       return this.id 
+    }
+    public setId(value: string) {
+        this.id = value;
+    }
     constructor(
         private name: string = name,
         private email: string = email,
         private password: string = password,
-        private role: ROLE = role
+        private role: ROLE = role,
+        private id: string = id
     ) { }
+
+    // static toUserModel(user: any): UserModel {
+    //     return new UserModel(
+    //         user.id,
+    //         user.name,
+    //         user.email,
+    //         user.password,
+    //         user.role
+    //     )
+    // }
 
 }

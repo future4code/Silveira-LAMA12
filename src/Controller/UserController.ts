@@ -1,30 +1,57 @@
-import { Request, Response } from "express"
-import UserBusiness from "../Business/UserBusiness"
-import UserModel from "../Model/UserModel"
-import { ROLE } from "../Types/UniversalTypes"
-import { userType } from "../Types/UserTypes"
-
+import { Request, Response } from "express";
+import { UserBusiness } from "../Business/UserBusiness";
+import { loginType } from "../Types/LoginTypes";
+import { UserTypes } from "../Types/UserTypes";
 
 export default class UserController {
+    constructor(
+        private userBusiness: UserBusiness
+    ) { }
 
-    public async Signup(req: Request, res: Response) {
-
-        // é necessário passar um email, um nome e uma senha, e também uma função dentro do sistema. 
+    public signUp = async (req: Request, res: Response) => {
         try {
-            const { email, name, password } = req.body
 
-            const userType: userType = { email, name, password }
+            const { name, email, password } = req.body
 
-            const userBussines = new UserBusiness()
+            const user: UserTypes = {
+                name,
+                email,
+                password
+            }
 
-            const token = await userBussines.Signup(userType)
+            const token = await this.userBusiness.signUp(user)
 
-            res.status(200).send({ token })
-        } catch (err: any) {
-            res.status(500).send({ message: err.message || err.sqlMessage })
+            res.status(201).send({ token })
+        } catch (error: any) {
+            if (res.statusCode === 200) {
+                res.status(500).send({ message: error.message })
+            } else {
+                res.status(res.statusCode).send({ message: error.sqlMessage || error.message })
+            }
         }
+
     }
 
+    login = async (req: Request, res: Response) => {
+        try {
 
+            const { email, password } = req.body
 
+            const user: loginType = {
+                email,
+                password
+            }
+
+            const token = await this.userBusiness.login(user)
+
+            res.status(200).send({ token })
+            
+        } catch (error: any) {
+            if (res.statusCode === 200) {
+                res.status(500).send({ message: error.message })
+            } else {
+                res.status(res.statusCode).send({ message: error.sqlMessage || error.message })
+            }
+        }
+    }
 }

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node ./build/index.js",
-    "dev-start": "ts-node-dev ./src/index.ts",
+    "dev-start":  "tsc && ts-node-dev ./src/index.ts",
     "migrations": "tsc && node ./build/Migrations/index.js"
+    
   },
   "repository": {
     "type": "git",
