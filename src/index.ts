@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import { app } from "./app";
 import { UserBusiness } from "./Business/UserBusiness";
+import BandaController from "./Controller/BandaController";
 import ShowController from "./Controller/ShowController";
 
 import UserController from "./Controller/UserController";
@@ -25,7 +26,6 @@ app.post('/signup', userController.signUp)
 
 
 
-
 // ===========================
 
 const showController = new ShowController()
@@ -33,3 +33,10 @@ const showController = new ShowController()
 app.post('/show', showController.AddShow)
 
 app.get('/show/:dayOfTheWeek', showController.GetShowByDay)
+
+
+// ===========================
+const bandaController = new BandaController()
+
+app.post('/banda', bandaController.AddBanda)
+app.get('/banda/:nameBanda', bandaController.GetBanda)
