@@ -15,11 +15,13 @@ export class ShowBusiness {
         if (!week_day || !start_time1 || !end_time1) {
             throw new Error('week_day, start_time ou end_time, nao informados, favor repita ')
         }
+
+
         const start_time = Number(start_time1)
         const end_time = Number(end_time1)
 
         if (start_time < 8 || end_time < 9 || start_time > 23 || end_time > 24) {
-            throw new Error('os horarios de inicio e fim devem estar entre 8 e 24')
+            throw new Error('os horários de inicio e fim devem estar entre 8 e 24')
         }
 
 
@@ -38,7 +40,7 @@ export class ShowBusiness {
         const showDB = new ShowDataBase()
 
         const resultShowStart = await showDB.getShowByHourStart(start_time, week_day)
-
+        console.log('passou');
         if (!resultShowStart) {
             throw new Error(' Ja existe um Show nessa hora')
         }

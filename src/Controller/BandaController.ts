@@ -13,7 +13,7 @@ export default class BandaController {
         try {
             const { name, gender, responsible } = req.body
 
-            const Authorization = req.header
+            const Authorization = req.headers.authorization
 
 
             const infoBanda: BandaCreate = {
@@ -38,8 +38,10 @@ export default class BandaController {
     public async GetBanda(req: Request, res: Response) {
         try {
             const nameBanda = req.params.nameBanda
+
             const bandaBusiness = new BandaBusiness()
             const bandaInfo = await bandaBusiness.GetBandaInfo(String(nameBanda))
+            res.status(200).send({ bandaInfo })
         } catch (err: any) {
             res.status(500).send({ message: err.message || err.sqlMessage })
         }

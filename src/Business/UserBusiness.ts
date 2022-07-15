@@ -21,7 +21,7 @@ export class UserBusiness {
             const { name, email, password } = user
 
             if (!name || !email || !password) {
-                throw new Error("Porfavor insira um dos dados mencionados no body")
+                throw new Error("Por favor insira um dos dados mencionados no body")
             }
 
             if (password.length < 6) {
@@ -60,21 +60,29 @@ export class UserBusiness {
 
             const userFromDB = await this.userDatabase.selectUserByEmail(email)
 
+
+
             if (!userFromDB) {
                 throw new Error(`E-mail não cadastrado!`)
             }
 
-            const isPasswordCorrect = this.hashManager.compare(password, userFromDB.getPassword())
+            // =====================
+            const isPasswordCorrect = this.hashManager.compare(password, userFromDB.password)
 
+
+
+            //======================
             if (!isPasswordCorrect) {
                 throw new Error(`Senha inválida!`)
             }
 
+
             const token = this.authenticator.generateToken({
 
-                id: userFromDB.getId(),
-                role: userFromDB.getRole()
+                id: userFromDB.id,
+                role: userFromDB.role
             })
+
 
             return token
 
