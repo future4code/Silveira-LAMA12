@@ -31,7 +31,6 @@ app.post('/login', userController.login)
 const showController = new ShowController()
 
 app.post('/show', showController.AddShow)
-
 app.get('/show/:dayOfTheWeek', showController.GetShowByDay)
 
 

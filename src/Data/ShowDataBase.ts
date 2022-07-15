@@ -2,12 +2,13 @@ import ShowModel from "../Model/ShowModel"
 import { connection } from "./Connection"
 
 
-const TABLE = 'NOME_TABELA_BANDAS'
+const TABLE = 'NOME_TABELA_SHOWS'
 
 export class ShowDataBase {
 
     public async AddShow(show: ShowModel) {
         try {
+            console.log(show);
             await connection(TABLE)
                 .insert({
                     id: show.getId(),
@@ -23,10 +24,10 @@ export class ShowDataBase {
     }
 
 
-    public async getShowByHourEnd(end_time: number, week_day: string) {
+    public async getShowByHourEnd(start_time: number, week_day: string) {
         try {
-            const result = await connection(TABLE).where({ end_time: end_time, week_day: week_day })
-
+            const result = await connection(TABLE).where({ start_time: start_time, week_day: week_day })
+            console.log(result);
             return result
 
 
@@ -49,7 +50,9 @@ export class ShowDataBase {
 
     public async ShowByDay(week_day: string) {
         try {
-            const result = await connection(TABLE).select(week_day).orderBy('start_time', 'asc')
+            console.log('==============');
+            const result = await connection(TABLE).where({ week_day }).orderBy('start_time', 'asc')
+            console.log(result);
 
             return result
 

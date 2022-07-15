@@ -9,19 +9,25 @@ import { authenticationData, ROLE } from '../Types/UniversalTypes';
 
 export class BandaBusiness {
 
-    public async AddBanda(banda: BandaCreate, Authorization: string) {
+    public async AddBanda(banda: BandaCreate, token: string) {
 
         const { name, music_genre, responsible } = banda
 
         if (!name || !music_genre || !responsible) {
             throw new Error('name, gender ou responsible nao informados')
         }
-        if (!Authorization) {
+        if (!token) {
             throw new Error('favor inserir a Authorization')
         }
+
         const authenticator = new Authenticator()
 
-        const authorizationInfo = authenticator.getTokenData(Authorization)
+        const authorizationInfo = authenticator.getTokenData(String(token)) //String(Authorization)
+
+
+
+
+
 
         if (authorizationInfo.role === ROLE.NORMAL) {
             throw new Error('voce nao tem permisao para adicionar uma banda')
@@ -44,9 +50,9 @@ export class BandaBusiness {
             id,
             role: ROLE.NORMAL
         }
-        const token = authenticator.generateToken(tokenInfo)
+        const token1 = authenticator.generateToken(tokenInfo)
 
-        return token
+        return token1
 
 
 
@@ -61,7 +67,7 @@ export class BandaBusiness {
         const bandaDB = new BandaDataBase()
 
         const infoBanda = await bandaDB.GetBandaByName(nameBanda)
-
+        console.log('passou aqui');
         if (!infoBanda) {
             throw new Error('banda nao encontrada')
         }

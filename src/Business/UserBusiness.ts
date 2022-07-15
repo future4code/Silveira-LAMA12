@@ -21,7 +21,7 @@ export class UserBusiness {
             const { name, email, password } = user
 
             if (!name || !email || !password) {
-                throw new Error("Porfavor insira um dos dados mencionados no body")
+                throw new Error("Por favor insira um dos dados mencionados no body")
             }
 
             if (password.length < 6) {
