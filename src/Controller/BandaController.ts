@@ -40,6 +40,7 @@ export default class BandaController {
             const nameBanda = req.params.nameBanda
             const bandaBusiness = new BandaBusiness()
             const bandaInfo = await bandaBusiness.GetBandaInfo(String(nameBanda))
+            return bandaInfo
         } catch (err: any) {
             res.status(500).send({ message: err.message || err.sqlMessage })
         }

@@ -32,7 +32,8 @@ export class UserDatabase {
                 .select("*")
                 .where({ email })
 
-            return result[0].password
+
+            return result[0]
 
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)

@@ -22,7 +22,7 @@ const userController = new UserController(userBusines)
 
 
 app.post('/signup', userController.signUp)
-
+app.post('/login', userController.login)
 
 
 
@@ -40,3 +40,13 @@ const bandaController = new BandaController()
 
 app.post('/banda', bandaController.AddBanda)
 app.get('/banda/:nameBanda', bandaController.GetBanda)
+
+
+/*
+
+
+token de user : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdhYTRkMTYwLWUyNmEtNDA1OC04MThmLWY4NDMwNDZiYjJmYyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNjU3OTE1NDY2LCJleHAiOjE2NTg2MjEwNjZ9.cbz24Pc5I5NkICm_-rykKvBQH0lcPmFi9GV2b-b2E44
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdhYTRkMTYwLWUyNmEtNDA1OC04MThmLWY4NDMwNDZiYjJmYyIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNjU3OTE1OTc4LCJleHAiOjE2NTg2MjE1Nzh9.w0KREo7W9RkkSQxLrR_pVdXaOuZBRvGLbbMzVdWXcjQ
+
+*/

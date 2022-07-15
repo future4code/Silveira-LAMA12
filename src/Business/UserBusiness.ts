@@ -60,21 +60,29 @@ export class UserBusiness {
 
             const userFromDB = await this.userDatabase.selectUserByEmail(email)
 
+
+
             if (!userFromDB) {
                 throw new Error(`E-mail não cadastrado!`)
             }
 
-            const isPasswordCorrect = this.hashManager.compare(password, userFromDB.getPassword())
+            // =====================
+            const isPasswordCorrect = this.hashManager.compare(password, userFromDB.password)
 
+
+
+            //======================
             if (!isPasswordCorrect) {
                 throw new Error(`Senha inválida!`)
             }
 
+
             const token = this.authenticator.generateToken({
 
-                id: userFromDB.getId(),
-                role: userFromDB.getRole()
+                id: userFromDB.id,
+                role: userFromDB.role
             })
+
 
             return token
 
