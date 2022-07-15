@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../Business/UserBusiness";
-import { loginType, UserTypes } from "../Types/UserTypes";
 // import { loginType } from "../Types/LoginTypes";
-// import { UserTypes, loginType } from "../Types/UserTypes";
+import { UserTypes, loginType } from "../Types/UserTypes";
 
 export default class UserController {
     constructor(

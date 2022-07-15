@@ -9,7 +9,7 @@ export default class ShowController {
     public async AddShow(req: Request, res: Response) {
         try {
             const { dayOfTheWeek, start_time, end_time } = req.body
-            const Authorization = req.headers.authorization // o Authorization tem que vir o token da banda
+            const Authorization = req.header // o Authorization tem que vir o token da banda
 
 
             const showBusiness = new ShowBusiness()
@@ -32,7 +32,7 @@ export default class ShowController {
     }
     public async GetShowByDay(req: Request, res: Response) {
         try {
-            const dayOfTheWeek = req.params.dayOfTheWeek
+            const dayOfTheWeek = req.params
 
 
             const showBusiness = new ShowBusiness()

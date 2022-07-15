@@ -25,8 +25,7 @@ export class BandaDataBase {
     public async GetBandaByName(name: string) {
         try {
 
-            const result = await connection(TABLE).where({ name: name })
-            console.log(result);
+            const result = await connection(TABLE).select({ name })
             return result
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)
