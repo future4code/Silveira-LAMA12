@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../Business/UserBusiness";
-import { loginType } from "../Types/LoginTypes";
-import { UserTypes } from "../Types/UserTypes";
+// import { loginType } from "../Types/LoginTypes";
+import { UserTypes, loginType } from "../Types/UserTypes";
 
 export default class UserController {
     constructor(
@@ -45,7 +45,7 @@ export default class UserController {
             const token = await this.userBusiness.login(user)
 
             res.status(200).send({ token })
-            
+
         } catch (error: any) {
             if (res.statusCode === 200) {
                 res.status(500).send({ message: error.message })

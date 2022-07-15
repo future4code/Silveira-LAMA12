@@ -1,20 +1,20 @@
 export enum USER_ROLES {
-    ADMIN = "ADMIN",
-    NORMAL = "NORMAL"
+  ADMIN = "ADMIN",
+  NORMAL = "NORMAL"
 }
 
 export type UserTypes = {
   name: string
-	email: string
-	password: string
-	role?: USER_ROLES
+  email: string
+  password: string
+  role?: USER_ROLES
 }
 
-export type login = {
-	email:string
-	password:string
+export type loginType = {
+  email: string
+  password: string
 }
-	
+
 
 export type FindByEmailResponse = {
   id: string;

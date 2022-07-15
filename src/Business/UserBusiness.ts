@@ -1,9 +1,9 @@
 import { UserDatabase } from "../Data/UserDatabase";
-import  UserModel  from "../Model/UserModel";
+import UserModel from "../Model/UserModel";
 import { Authenticator } from "../Services/Authenticator";
-import  {hashManager}  from "../Services/hashManager";
+import { hashManager } from "../Services/hashManager";
 import { IdGenerator } from "../Services/IdGenerator";
-import { loginType } from "../Types/LoginTypes";
+import { loginType } from "../Types/UserTypes";
 import { authenticationData, ROLE } from "../Types/UniversalTypes";
 import { UserTypes } from "../Types/UserTypes";
 
@@ -14,10 +14,10 @@ export class UserBusiness {
         private hashManager: hashManager,
         private userDatabase: UserDatabase,
         private authenticator: Authenticator
-    ) {}
+    ) { }
     signUp = async (user: UserTypes) => {
         try {
-            
+
             const { name, email, password } = user
 
             if (!name || !email || !password) {
@@ -30,17 +30,17 @@ export class UserBusiness {
 
             const id = this.idGenerator.generateId()
 
-            const cryptedPassword =  await this.hashManager.hash(password)
+            const cryptedPassword = await this.hashManager.hash(password)
 
-            const newUser = new UserModel(name, email, cryptedPassword, ROLE.ADMINISTRADOR, id )
-            
+            const newUser = new UserModel(name, email, cryptedPassword, ROLE.ADMINISTRADOR, id)
+
             // id, name, email, ROLE.ADMINISTRADOR, cryptedPassword
 
             await this.userDatabase.signUp(newUser)
 
-            const authenticationId : authenticationData = { role : ROLE.ADMINISTRADOR , id : id}
+            const authenticationId: authenticationData = { role: ROLE.ADMINISTRADOR, id: id }
 
-            const token = this.authenticator.generateToken( authenticationId )
+            const token = this.authenticator.generateToken(authenticationId)
 
             return token
 
@@ -54,7 +54,7 @@ export class UserBusiness {
 
             const { email, password } = user
 
-            if ( !email || !password ) {
+            if (!email || !password) {
                 throw new Error("Por favor insira um dos dados mencionados no body, nome e senha!")
             }
 
@@ -71,14 +71,14 @@ export class UserBusiness {
             }
 
             const token = this.authenticator.generateToken({
-                
-                id: userFromDB.getId(), 
-                role : userFromDB.getRole()
+
+                id: userFromDB.getId(),
+                role: userFromDB.getRole()
             })
 
             return token
 
-            
+
         } catch (error: any) {
             throw new Error(error.sqlMessage || error.message)
         }
